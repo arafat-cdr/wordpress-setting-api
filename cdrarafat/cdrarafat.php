@@ -56,25 +56,25 @@ add_action( 'admin_init', 'cdr_all_setting' );
 function cdr_all_setting() {
 
 	register_setting(
-		'cdr_setting_group',	// setting group name
+		'cdr_setting_group',		// setting group name
 		'cdr_setting_name',		// setting name 
 		'cdr_save_setting'		// callback for validation
 	);
 
 
 	add_settings_section(
-		'cdr_section_id',			// id
+		'cdr_section_id',		// id
 		'Set up the Coder Section',	// title
 		'cdr_section_cal_name',		// callback
 		'cdr_my_setting_page'		// page
 	);
 
 	add_settings_field(
-		'cdr_set_field_id',			// id
+		'cdr_set_field_id',		// id
 		'Setting Field start here',	// title
 		'cdr_main_cal_start',		// callback
 		'cdr_my_setting_page',		// page
-		'cdr_section_id'			// section id
+		'cdr_section_id'		// section id
 	);
 }
 
@@ -119,8 +119,23 @@ function cdr_save_setting($input){
 	/*echo "<pre>";
 	print_r($input);
 	echo "</pre>";
+	die();
+	*/
 
-	die();*/
+	if(
+		empty($input['set_one']) || 
+		empty($input['set_two']) ||
+		empty($input['set_three'])
+	){
+
+		add_settings_error(
+			'cdr_set_field_id',				// field id
+			'error_id',					// code
+			'Please fill all the Field Correctly !',	// msg
+			'error'  					// msg name
+		);
+
+	}
 
 	return $input;
 }
